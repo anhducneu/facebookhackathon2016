@@ -88,4 +88,33 @@ router.get('/tree/exist', function(req, res) {
 
 });
 
+
+router.get('/tree/image', function(req, res) {
+
+    var name = req.query.name;
+    try{
+        const ImagesClient = require('google-images');
+
+        let client = new ImagesClient('003393513132183759152:dstncmhyl9g', 'AIzaSyA7n8ZpSWQPIwfPKT5_GN_24gealN7_29M');
+
+        client.search(name).then(function (response) {
+            //console.log(response);
+            var images = response.map(function(image){
+                return image.url;
+            });
+
+            res.status(500).send({
+                'images': images
+            });
+        });
+    }catch(e){
+        res.status(500).send({
+            'images': null
+        });
+    }
+
+});
+
+
+
 module.exports = router;

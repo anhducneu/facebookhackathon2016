@@ -7,3 +7,14 @@ Your search engine ID: 003393513132183759152:dstncmhyl9g
 API Key: AIzaSyA7n8ZpSWQPIwfPKT5_GN_24gealN7_29M
 
 
+
+NPM:
+../nodejs/bin/npm install --save @google-cloud/vision
+../nodejs/bin/npm install google-images --save
+../nodejs/bin/npm install express --save
+../nodejs/bin/npm install morgan --save
+
+
+
+
+

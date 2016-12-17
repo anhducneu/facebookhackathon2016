@@ -2,11 +2,10 @@ var express = require('express');
 var morgan = require('morgan');
 
 var app = express();
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
 var config = require('./config');
 var vision = require('./controllers/vision');
-// var customsearch = require('./controllers/customsearch');
 
 
 app.use(vision);
