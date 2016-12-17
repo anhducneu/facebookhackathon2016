@@ -63,20 +63,17 @@ router.get('/tree/exist', function(req, res) {
                     'exist': false,
                     'label': null
                 });
+            }else{
+
+                var labels = response.map(function(label){
+                    return label.desc;
+                });
+
+                res.status(200).send({
+                    'exist': checkIntersection(labels, config.treelist),
+                    'label': labels
+                });
             }
-
-            // callback(null, labels.toString());
-
-            //@todo: if else tree or not
-            var labels = response.map(function(label){
-                return label.desc;
-            });
-
-            res.status(200).send({
-                'exist': checkIntersection(labels, config.treelist),
-                'label': labels
-            });
-
         });
     }catch(e){
         res.status(500).send({
