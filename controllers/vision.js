@@ -15,7 +15,7 @@ function detectLabels (inputFile, callback) {
         if (err) {
             return callback(err);
         }
-        console.log('result:', JSON.stringify(labels, null, 2));
+        // console.log('result:', JSON.stringify(labels, null, 2));
         callback(null, labels);
     });
 }
@@ -58,7 +58,7 @@ router.get('/tree/exist', function(req, res) {
     try {
         detectLabels(imageUrl, function (err, response) {
 
-            if (err) {
+            if (err || response == undefined) {
                 res.status(500).send({
                     'exist': false,
                     'label': null
@@ -68,7 +68,6 @@ router.get('/tree/exist', function(req, res) {
             // callback(null, labels.toString());
 
             //@todo: if else tree or not
-
             var labels = response.map(function(label){
                 return label.desc;
             });

@@ -9,10 +9,10 @@ API Key: AIzaSyA7n8ZpSWQPIwfPKT5_GN_24gealN7_29M
 
 
 NPM:
-../nodejs/bin/npm install --save @google-cloud/vision
-../nodejs/bin/npm install google-images --save
-../nodejs/bin/npm install express --save
-../nodejs/bin/npm install morgan --save
+npm install --save @google-cloud/vision
+npm install google-images --save
+npm install express --save
+npm install morgan --save
 
 
 
