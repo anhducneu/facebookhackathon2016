@@ -1,10 +1,19 @@
 var config = require('../config');
 var express = require('express');
 var Vision = require('@google-cloud/vision');
+var mysql = require('mysql');
 
 var app = express();
 var vision = Vision();
 var router = express.Router();
+
+
+var connection = mysql.createConnection({
+    host     : config.mysql.host,
+    user     : config.mysql.username,
+    password : config.mysql.password,
+    database : config.mysql.dbname
+});
 
 /**
  * Uses the Vision API to detect labels in the given file.
@@ -111,6 +120,38 @@ router.get('/tree/image', function(req, res) {
 
 });
 
+
+router.get('/tree/ads', function(req, res){
+
+    var name = req.query.name;
+
+    try {
+        connection.query("SELECT name, description, contact, image from advertisement where keywords like ?", ['%' + name + '%'],  function (err, rows, fields) {
+            if (err) {
+                // throw err;
+                res.status(500).send({
+                    'advertisements': []
+                });
+
+
+            }else{
+                // var advertiserments = rows.map(function(row){
+                //     return {'name': row.RowDataPacket.name, 'description': row.RowDataPacket.description, 'contact': row.RowDataPacket.contact, 'image': row.RowDataPacket.image};
+                // });
+
+                res.status(200).send({
+                    'advertisements': rows
+                });
+
+            }
+
+        });
+    }catch(e){
+        res.status(500).send({
+            'advertisements': []
+        });
+    }
+});
 
 
 module.exports = router;
