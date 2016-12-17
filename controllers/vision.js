@@ -127,11 +127,9 @@ router.get('/tree/ads', function(req, res){
 
     try {
         connection.query("SELECT name, description, contact, image from advertisement where keywords like ?", ['%' + name + '%'],  function (err, rows, fields) {
-            if (err) {
+            if (err || rows.length == 0) {
                 // throw err;
-                res.status(500).send({
-                    'advertisements': []
-                });
+                res.status(500).send({});
 
 
             }else{
@@ -139,17 +137,14 @@ router.get('/tree/ads', function(req, res){
                 //     return {'name': row.RowDataPacket.name, 'description': row.RowDataPacket.description, 'contact': row.RowDataPacket.contact, 'image': row.RowDataPacket.image};
                 // });
 
-                res.status(200).send({
-                    'advertisements': rows
-                });
+                res.status(200).send(rows[0]);
 
             }
 
         });
     }catch(e){
-        res.status(500).send({
-            'advertisements': []
-        });
+        res.status(500).send({});
+
     }
 });
 
